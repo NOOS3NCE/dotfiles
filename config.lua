@@ -69,17 +69,16 @@ local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
 	{
 		exe = "prettier",
-		-- args = {
-		-- 	"--no-semi",
-		-- 	"--use-tabs=true",
-		-- 	"--single-quote=true",
-		-- 	"--indent-style=tabs",
-		-- 	"--indent-size=4",
-		-- 	"--trailing-comma=all",
-		-- 	"--no-bracket-spacing=false",
-		-- 	"--bracket-same-line=true",
-		-- 	"--print-width=100",
-		-- },
+		args = {
+			"--bracket-same-line",
+			"--no-semi",
+			"--use-tabs=true",
+			"--single-quote=true",
+			"--indent-style=tabs",
+			"--indent-size=4",
+			"--trailing-comma=all",
+			"--print-width=100",
+		},
 	},
 }
 
@@ -99,6 +98,7 @@ lvim.plugins = {
 	{ 'airblade/vim-gitgutter' },
 	{ 'NLKNguyen/papercolor-theme' },
 	{ 'tomasr/molokai' },
+	{ 'nvim-treesitter/nvim-treesitter-context' },
 	{
 		"folke/trouble.nvim",
 		cmd = "TroubleToggle",
