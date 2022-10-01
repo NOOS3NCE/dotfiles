@@ -1,25 +1,44 @@
+require("telescope").load_extension('harpoon')
+require('telescope').load_extension('command_palette')
+require("telescope").load_extension("git_worktree")
+
 --LVIM SETUP
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "synthwave84"
+lvim.colorscheme = "molokai"
 vim.opt.relativenumber = true
 vim.opt.number = true
-vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.expandtab = false
 vim.opt.softtabstop = -1
 lvim.leader = "space"
+lvim.transparent_window = false
+lvim.builtin.lualine.style = "default"
+lvim.builtin.lualine.options.theme = "horizon"
+vim.opt.cmdheight = 1
 
 -- KEY BINDINGS
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 vim.cmd 'hi Normal guibg=NONE ctermbg=NONE'
+
+--HARPOON
 lvim.keys.normal_mode["<C-j>"] = ':lua require("harpoon.ui").nav_file(1)<CR>'
 lvim.keys.normal_mode["<C-k>"] = ':lua require("harpoon.ui").nav_file(2)<CR>'
 lvim.keys.normal_mode["<C-l>"] = ':lua require("harpoon.ui").nav_file(3)<CR>'
 lvim.keys.normal_mode["<C-;>"] = ':lua require("harpoon.ui").nav_file(4)<CR>'
 lvim.keys.normal_mode["<C-e>"] = ':lua require("harpoon.ui").toggle_quick_menu()<CR>'
 lvim.keys.normal_mode["<C-m>"] = ':lua require("harpoon.mark").add_file()<CR>'
-lvim.keys.normal_mode["<leader><C-r>"] = ':lua require("harpoon.mark").rm_file()<CR>'
+lvim.keys.normal_mode["<leader><c-r>"] = ':lua require("harpoon.mark").rm_file()<cr>'
+
+--SPECTRE
+-- lvim.keys.normal_mode["<leader>S"] = '<cmd>lua require("spectre").open()<CR>'
+-- lvim.keys.normal_mode["<leader>sw"] = '<cmd>lua require("spectre").open_visual({select_word=true})<CR>'
+-- lvim.keys.normal_mode["<leader>s"] = '<esc>:lua require("spectre").open_visual()<CR>'
+-- lvim.keys.normal_mode["<leader>sp"] = 'viw:lua require("spectre").open_file_search()<cr>'
+
+--GIT WORKTREE
+lvim.keys.normal_mode["<leader>ye"] = ':lua require("telescope").extensions.git_worktree.git_worktrees()<CR>'
+lvim.keys.normal_mode["<leader>yc"] = ':lua require("telescope").extensions.git_worktree.create_git_worktree()<CR>'
 
 -- BUILTINS
 lvim.builtin.alpha.active = true
@@ -49,47 +68,39 @@ lvim.builtin.treesitter.highlight.enabled = true
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
 	{
-		command = "prettier",
-		extra_args = { "--print-with", "100" },
+		exe = "prettier",
+		-- args = {
+		-- 	"--no-semi",
+		-- 	"--use-tabs=true",
+		-- 	"--single-quote=true",
+		-- 	"--indent-style=tabs",
+		-- 	"--indent-size=4",
+		-- 	"--trailing-comma=all",
+		-- 	"--no-bracket-spacing=false",
+		-- 	"--bracket-same-line=true",
+		-- 	"--print-width=100",
+		-- },
 	},
 }
-
--- -- set additional linters
--- local linters = require "lvim.lsp.null-ls.linters"
--- linters.setup {
---   { command = "flake8", filetypes = { "python" } },
---   {
---     -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
---     command = "shellcheck",
---     ---@usage arguments to pass to the formatter
---     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
---     extra_args = { "--severity", "warning" },
---   },
---   {
---     command = "codespell",
---     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
---     filetypes = { "javascript", "python" },
---   },
--- }
 
 -- Additional Plugins
 lvim.plugins = {
 	{ "folke/tokyonight.nvim" },
-	{ "nvim-lua/plenary.nvim" },
 	{ "ThePrimeagen/harpoon" },
-	{ "nvim-telescope/telescope.nvim" },
 	{ "LinArcX/telescope-command-palette.nvim" },
-	{ 'artanikin/vim-synthwave84' },
 	{ 'tpope/vim-fugitive' },
 	{ 'skanehira/getpr' },
 	{ 'skanehira/getpr.vim' },
 	{ 'APZelos/blamer.nvim' },
 	{ 'tpope/vim-surround' },
+	{ 'windwp/nvim-spectre' },
+	{ 'ThePrimeagen/git-worktree.nvim' },
+	{ 'sindrets/diffview.nvim' },
+	{ 'airblade/vim-gitgutter' },
+	{ 'NLKNguyen/papercolor-theme' },
+	{ 'tomasr/molokai' },
 	{
 		"folke/trouble.nvim",
 		cmd = "TroubleToggle",
 	},
 }
-
-require("telescope").load_extension('harpoon')
-require('telescope').load_extension('command_palette')
